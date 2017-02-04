@@ -5,6 +5,12 @@ file in a child compiler.
 
 Works with babel and TypeScript.
 
+## Install
+
+```bash
+npm install --save-dev value-loader
+```
+
 ## Usage
 
 ``` javascript
