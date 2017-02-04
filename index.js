@@ -91,7 +91,6 @@ function produce(loader, request, callback, config) {
       if (name && name in exports) {
         exports = exports[name];
       }
-      console.log(exports);
       callback(null, exports);
     } else {
       callback();
