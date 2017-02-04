@@ -1,7 +1,7 @@
 # Value Loader for Webpack
 
 Like [val-loader](https://github.com/webpack-contrib/val-loader) but runs
-file in a child compiler.
+file in a child compiler. Works with babel and TypeScript.
 
 ## Usage
 
