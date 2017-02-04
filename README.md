@@ -22,6 +22,10 @@ require("css-loader!value-loader!./generateCss.js");
 Instead of getting the whole `exports` object you can set `name` to the
 named export you want to retrieve.
 
+``` javascript
+require("css-loader!value-loader?name=default!./generateCss.js");
+```
+
 ## Acknowledgement
 
 This work is heavily based on the work done by Nathan Tran for
