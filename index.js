@@ -26,10 +26,10 @@ module.exports.pitch = function (request, prevRequest) {
 };
 
 function produce(loader, request, callback, config) {
-  const childFilename = "css-in-js-output-filename";
+  const childFilename = "value-output-filename";
   const outputOptions = { filename: childFilename };
   const childCompiler = getRootCompilation(loader)
-      .createChildCompiler("css-in-js-compiler", outputOptions);
+      .createChildCompiler("value-compiler", outputOptions);
   childCompiler.apply(new NodeTemplatePlugin(outputOptions));
   childCompiler.apply(new LibraryTemplatePlugin(null, "commonjs2"));
   childCompiler.apply(new NodeTargetPlugin());
