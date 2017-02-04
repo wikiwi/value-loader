@@ -1,0 +1,30 @@
+{
+  "name": "value-loader",
+  "version": "0.1.0",
+  "description": "Webpack loader that executes file in a child compiler and return exports",
+  "homepage": "https://github.com/wikiwi/value-loader",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wikiwi/value-loader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wikiwi/value-loader/issues"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": ">=4"
+  },
+  "keywords": [
+    "webpack",
+    "value",
+    "loader"
+  ],
+  "author": "Chi Vinh Le and contributors (https://github.com/wikiwi/value-loader/graphs/contributors)",
+  "license": "MIT",
+  "peerDependencies": {
+    "webpack": "^1.12.9 || ^2.0.0"
+  },
+  "dependencies": {
+    "loader-utils": "^0.2.16"
+  }
+}
