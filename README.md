@@ -14,7 +14,7 @@ let a = require("value-loader!./file.js");
 This loader is also useful if you want to provide data for another loader:
 
 ``` javascript
-require("css-loader!val-loader!./generateCss.js");
+require("css-loader!value-loader!./generateCss.js");
 ```
 
 ## Config
