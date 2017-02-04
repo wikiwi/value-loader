@@ -1,6 +1,6 @@
 {
   "name": "value-loader",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Webpack loader that executes file in a child compiler and return exports",
   "homepage": "https://github.com/wikiwi/value-loader",
   "repository": {
