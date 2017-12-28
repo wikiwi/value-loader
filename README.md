@@ -25,6 +25,13 @@ This loader is also useful if you want to provide data for another loader:
 require("css-loader!value-loader!./generateCss.js");
 ```
 
+Or if you like to generate a json export similar to the tojson-loader, but with loaders executed:
+
+``` javascript
+require("raw-loader!value-loader!./resource.json.js");
+```
+
+
 ## Config
 
 Instead of getting the whole `exports` object you can set `name` to the
