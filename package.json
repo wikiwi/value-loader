@@ -22,7 +22,7 @@
   "author": "Chi Vinh Le and contributors (https://github.com/wikiwi/value-loader/graphs/contributors)",
   "license": "MIT",
   "peerDependencies": {
-    "webpack": "^1.12.9 || ^2.0.0 || ^3.0.0"
+    "webpack": "^1.12.9 || ^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "dependencies": {
     "loader-utils": "^0.2.16"
