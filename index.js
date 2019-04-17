@@ -16,7 +16,7 @@ module.exports.pitch = function (request, prevRequest) {
   if (this.cacheable) this.cacheable();
   const callback = this.async();
   if ([".js", ".ts"].indexOf(path.extname(request)) >= 0) {
-    produce(this, request, callback, loaderUtils.getLoaderConfig(this));
+    produce(this, request, callback, loaderUtils.getOptions(this));
   } else {
     const parts = request.split("!");
     const filename = parts[parts.length - 1];
@@ -30,13 +30,15 @@ function produce(loader, request, callback, config) {
   const outputOptions = { filename: childFilename };
   const childCompiler = getRootCompilation(loader)
       .createChildCompiler("value-compiler", outputOptions);
-  childCompiler.apply(new NodeTemplatePlugin(outputOptions));
-  childCompiler.apply(new LibraryTemplatePlugin(null, "commonjs2"));
-  childCompiler.apply(new NodeTargetPlugin());
-  childCompiler.apply(new SingleEntryPlugin(loader.context, `!!${request}`));
-  childCompiler.apply(new LimitChunkCountPlugin({ maxChunks: 1 }));
+  new NodeTemplatePlugin(outputOptions).apply(childCompiler);
+  new LibraryTemplatePlugin(null, "commonjs2").apply(childCompiler);
+  new NodeTargetPlugin().apply(childCompiler);
+  new SingleEntryPlugin(loader.context, `!!${request}`).apply(childCompiler);
+  new LimitChunkCountPlugin({ maxChunks: 1 }).apply(childCompiler);
   const subCache = `subcache ${__dirname} ${request}`;
-  childCompiler.plugin("compilation", (compilation) => {
+
+  const plugin = { name: 'ValueLoader' };
+  childCompiler.hooks.compilation.tap(plugin, (compilation) => {
     if (compilation.cache) {
       if (!compilation.cache[subCache])
               { compilation.cache[subCache] = {}; }
@@ -45,13 +47,13 @@ function produce(loader, request, callback, config) {
   });
   // We set loaderContext[__dirname] = false to indicate we already in
   // a child compiler so we don't spawn another child compilers from there.
-  childCompiler.plugin("this-compilation", (compilation) => {
-    compilation.plugin("normal-module-loader", (loaderContext) => {
+  childCompiler.hooks.thisCompilation.tap(plugin, (compilation) => {
+    compilation.hooks.normalModuleLoader.tap(plugin, (loaderContext) => {
       loaderContext[__dirname] = false;
     });
   });
   let source;
-  childCompiler.plugin("after-compile", (compilation, callback) => {
+  childCompiler.hooks.afterCompile.tap(plugin, (compilation) => {
     source = compilation.assets[childFilename] && compilation.assets[childFilename].source();
 
     // Remove all chunk assets
@@ -60,8 +62,6 @@ function produce(loader, request, callback, config) {
         delete compilation.assets[file];
       });
     });
-
-    callback();
   });
 
   childCompiler.runAsChild((err, entries, compilation) => {
